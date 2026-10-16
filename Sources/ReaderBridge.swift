@@ -12,10 +12,10 @@ final class BookScheme: NSObject, WKURLSchemeHandler {
             if parts.first == "web" {
                 let root = Bundle.main.resourceURL!.appendingPathComponent("Web")
                 file = parts.dropFirst().reduce(root) {$0.appendingPathComponent($1)}.standardizedFileURL
-                guard file.path.hasPrefix(root.path + "/") else {throw EngineError(message:"Niedozwolona ścieżka")}
+                guard file.path.hasPrefix(root.path + "/") else {throw EngineError(message:L("Niedozwolona ścieżka"))}
             } else if parts.count == 3, parts.first == "books", parts.last == "source.epub", UUID(uuidString: parts[1]) != nil {
                 file = AppPaths.source(parts[1])
-            } else {throw EngineError(message:"Nieznany zasób")}
+            } else {throw EngineError(message:L("Nieznany zasób"))}
             let data = try Data(contentsOf: file)
             let ext = file.pathExtension
             let mime: String
@@ -27,7 +27,7 @@ final class BookScheme: NSObject, WKURLSchemeHandler {
     func webView(_ webView: WKWebView, stop task: WKURLSchemeTask) {}
 }
 
-final class ReaderController: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
+final class ReaderController: NSObject, WKScriptMessageHandler, WKNavigationDelegate, ReaderControlling {
     weak var model: AppModel?
     let webView: WKWebView
     let bookID: String

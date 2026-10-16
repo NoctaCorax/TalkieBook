@@ -149,7 +149,7 @@ window.reader={
             // delivering a valid body. Pass a File instead of foliate's HTTP loader.
             const response=await fetch(url);
             const bytes=await response.arrayBuffer();
-            if(!bytes.byteLength)throw new Error('Plik książki jest pusty.');
+            if(!bytes.byteLength)throw new Error(prefs.language==='en'?'The book file is empty.':'Plik książki jest pusty.');
             await view.open(new File([bytes],'book.epub',{type:'application/epub+zip'}));
             styles();
             send('toc',{items:(function flatten(items,depth=0){return(items||[]).flatMap(i=>[{label:labels(i.label),href:i.href,depth},...flatten(i.subitems,depth+1)])})(view.book.toc)});
@@ -167,7 +167,7 @@ window.reader={
     async search(query){const gen=++searchGeneration;let results=[];if(!query.trim()){view.clearSearch();send('search',{items:[]});return;}for await(const item of view.search({query,matchCase:false})){if(gen!==searchGeneration)return;for(const r of item.subitems||[]){const excerpt=r.excerpt;results.push({cfi:r.cfi,text:typeof excerpt==='string'?excerpt:[excerpt?.pre,excerpt?.match,excerpt?.post].filter(Boolean).join('')});}if(results.length>=150)break;}if(gen===searchGeneration)send('search',{items:results});},
     annotation(mark){annotations.push(mark);view.addAnnotation(mark);},
     removeAnnotation(cfi){annotations=annotations.filter(a=>a.value!==cfi);view.deleteAnnotation({value:cfi});},
-    bookmark(){send('bookmark',{cfi:view.lastLocation?.cfi||'',text:view.lastLocation?.tocItem?.label||'Zakładka'});},
+    bookmark(){send('bookmark',{cfi:view.lastLocation?.cfi||'',text:view.lastLocation?.tocItem?.label||(prefs.language==='en'?'Bookmark':'Zakładka')});},
     diagnostics(){send('diagnostics',{chapter,sentences:sentences.length,location:view.lastLocation?.cfi,background:getComputedStyle(document.body).backgroundColor});}
 };
 window.addEventListener('error',e=>send('error',{message:e.message}));

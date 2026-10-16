@@ -30,7 +30,7 @@ final class Engine {
                 data.append(10)
                 try input?.write(contentsOf: data)
                 let response = try readResponse()
-                if let error = response["error"] as? String { throw EngineError(message: error) }
+                if let error = response["error"] as? String { throw EngineError(message:L(error)) }
                 let result = response["result"] as? [String: Any] ?? [:]
                 DispatchQueue.main.async { completion(.success(result)) }
             } catch {
@@ -41,11 +41,11 @@ final class Engine {
     }
     private func start() throws {
         if process?.isRunning == true { return }
-        guard let resources = Bundle.main.resourceURL else { throw EngineError(message: "Brak zasobów aplikacji.") }
+        guard let resources = Bundle.main.resourceURL else { throw EngineError(message: L("Brak zasobów aplikacji.")) }
         let runtime = resources.appendingPathComponent("Engine/python")
         let executable = runtime.appendingPathComponent("bin/python3.12")
         guard FileManager.default.isExecutableFile(atPath: executable.path) else {
-            throw EngineError(message: "Brak dołączonego silnika mowy. Zbuduj aplikację skryptem build.sh.")
+            throw EngineError(message: L("Brak dołączonego silnika mowy. Zbuduj aplikację skryptem build.sh."))
         }
         let worker = Process(), stdin = Pipe(), stdout = Pipe()
         worker.executableURL = executable
@@ -78,7 +78,7 @@ final class Engine {
                 return try JSONSerialization.jsonObject(with: Data(line)) as? [String: Any] ?? [:]
             }
             let data = output.availableData
-            if data.isEmpty {throw EngineError(message: "Silnik mowy zakończył pracę. Spróbuj ponownie. Szczegóły: engine.log w danych aplikacji.")}
+            if data.isEmpty {throw EngineError(message: L("Silnik mowy zakończył pracę. Spróbuj ponownie. Szczegóły: engine.log w danych aplikacji."))}
             buffer.append(data)
         }
     }

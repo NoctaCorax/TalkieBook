@@ -21,5 +21,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Download verified updater framework
+        run: bash scripts/setup-updater.sh
       - name: Check native sources
-        run: swiftc -swift-version 5 -parse-as-library -typecheck Sources/*.swift -framework SwiftUI -framework WebKit -framework AVFoundation -framework AppKit
+        run: swiftc -swift-version 5 -parse-as-library -typecheck -F .build/sparkle Sources/*.swift -framework SwiftUI -framework WebKit -framework AVFoundation -framework AppKit -framework PDFKit -framework Vision -framework NaturalLanguage -framework Sparkle
+
+      - name: Test native PDF import
+        run: bash scripts/test-native.sh

@@ -9,7 +9,7 @@ The root MIT license covers TalkieBook's original code and documentation. It doe
 - MIT; see `Resources/Web/foliate/LICENSE`.
 - Bundled dependencies: zip.js (BSD-3-Clause), fflate (MIT).
 
-Upstream source and notices are retained. This distribution omits the optional PDF.js assets because TalkieBook does not expose PDF reading. The upstream optional PDF adapter remains in the source tree but cannot load without those assets. Supplemental dependency licenses are under `Resources/Web/foliate/vendor/`.
+Upstream source and notices are retained. This distribution omits the optional PDF.js assets because TalkieBook renders PDFs natively with Apple PDFKit. The upstream optional PDF adapter remains in the source tree but cannot load without those assets. Supplemental dependency licenses are under `Resources/Web/foliate/vendor/`.
 
 ## Piper
 
@@ -31,3 +31,7 @@ The upstream model card identifies the dataset license as CC0 and describes fine
 ## Python runtime and packages
 
 Setup uses a portable Python 3.12 distribution managed by uv, from <https://github.com/astral-sh/python-build-standalone>. Installed dependencies include ONNX Runtime and NumPy. Their license files and package metadata must remain with redistributed runtimes. Build copies package metadata and the portable runtime's license directory when available.
+
+## Sparkle
+
+[Sparkle 2.10.0](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.0) provides signed in-app updates. Its license and third-party notices are included in `Resources/Licenses/Sparkle-LICENSE` and the bundled framework.

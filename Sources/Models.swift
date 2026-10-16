@@ -15,6 +15,9 @@ struct Book: Codable, Identifiable, Equatable {
     var progress: Double = 0
     var status = "W trakcie"
     var collection = ""
+    var format: String? = nil
+    var pdfIndexVersion: Int? = nil
+    var isPDF: Bool { format == "pdf" }
 }
 struct Mark: Codable, Identifiable {
     var id = UUID().uuidString
@@ -72,7 +75,10 @@ extension Color {
     static let moss = Color(red: 0.37, green: 0.44, blue: 0.31)
 }
 enum AppPaths {
-    static let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Lektura", isDirectory: true)
+    static let root: URL = {
+        if let path=ProcessInfo.processInfo.environment["TALKIEBOOK_DATA_DIR"] {return URL(fileURLWithPath:path,isDirectory:true)}
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Lektura", isDirectory: true)
+    }()
     static let books = root.appendingPathComponent("Books", isDirectory: true)
     static let cache = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0].appendingPathComponent("Lektura/Audio", isDirectory: true)
     static let library = root.appendingPathComponent("library.json")
