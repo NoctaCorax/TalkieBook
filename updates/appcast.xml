@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>TalkieBook</title>
+        <item>
+            <title>1.2.0</title>
+            <pubDate>Fri, 16 Oct 2026 23:37:37 +0200</pubDate>
+            <link>https://github.com/NoctaCorax/TalkieBook</link>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/NoctaCorax/TalkieBook/releases/download/v1.2.0/TalkieBook-1.2.0-arm64.dmg" length="147868973" type="application/octet-stream" sparkle:edSignature="B5yukQmjSHQaDIyAxiCBzvg8p8rolziTIA83HwFK5AstIligOQSJ10ysPt/VtF5A99xP5rGZBMtucWzJZGPQBg=="></enclosure>
+        </item>
+    </channel>
+</rss><!-- sparkle-signatures:
+edSignature: SL3bcbdVbvA97gxfbdgT8Wqfm5DwDXFiCsYV5C2gUAflVZTbwSLwUYJyajmQzzMrFwPx0d/3Rhk0tPusOH1xCQ==
+length: 1202
+-->
